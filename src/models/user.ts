@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 const UserSchema = new Schema(
   {
-    username: {
+    name: {
       type: String,
       unique: true,
       required: true,
@@ -16,6 +16,15 @@ const UserSchema = new Schema(
       type: String,
       unique: true,
       required: true,
+    },
+    avatar: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    lastLogin: {
+      type: Date,
+      default: Date.now(),
     },
   },
   { timestamps: true, collection: "users" }
