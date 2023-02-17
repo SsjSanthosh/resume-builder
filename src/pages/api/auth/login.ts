@@ -2,10 +2,10 @@ import User from "models/user";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { NextApiRequest, NextApiResponse } from "next";
-import { baseHandler } from "utils/apiHandler";
 import connectToDB from "utils/db";
 import { generateZodError } from "utils/helpers";
 import { loginRouteValidator } from "utils/validators";
+import baseHandler from "utils/apiHandler";
 const handler = baseHandler();
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
@@ -27,7 +27,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
               {
                 user_id: user.id,
               },
-              "SOMESECRETKEYTHATGOESHERE"
+              process.env.JWT_SECRET as string
             );
             res.send({ token });
           } else res.status(422).end();

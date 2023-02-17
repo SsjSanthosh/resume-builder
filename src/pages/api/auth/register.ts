@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "models/user";
 import { NextApiRequest, NextApiResponse } from "next";
-import { baseHandler } from "utils/apiHandler";
+import baseHandler from "utils/apiHandler";
 import connectToDB from "utils/db";
 import { AVATAR_GENERATOR_API } from "utils/endpoints";
 import { generateZodError } from "utils/helpers";
