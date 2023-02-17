@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { baseHandler } from "utils/apiHandler";
 import connectToDB from "utils/db";
 import { AVATAR_GENERATOR_API } from "utils/endpoints";
+import { generateZodError } from "utils/helpers";
 import { registerRouteValidator } from "utils/validators";
 import z from "zod";
 const handler = baseHandler();
@@ -24,11 +25,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       delete resp.__v;
       res.send({ user: resp });
     } else {
-      const errors = validate.error.issues.map((iss) => {
-        return {
-          [iss.path[0]]: iss.message,
-        };
-      });
+      const errors = generateZodError(validate.error);
       res.status(400).send({ message: "Invalid request parameters.", errors });
     }
   } catch (err) {
